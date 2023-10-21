@@ -15,7 +15,7 @@ wlan_sta = network.WLAN(network.STA_IF)
 server_socket = None
 
 
-def get_connection():
+def get_connection(oled):
     """return a working WLAN(STA_IF) instance or None"""
 
     # First check if there already is any connection:
@@ -57,8 +57,8 @@ def get_connection():
 
     # start web server for connection manager:
     if not connected:
+        oled.ap_msg()
         connected = start()
-
     return wlan_sta if connected else None
 
 
@@ -296,5 +296,7 @@ def start(port=80):
 
         finally:
             client.close()
+
+
 
 
